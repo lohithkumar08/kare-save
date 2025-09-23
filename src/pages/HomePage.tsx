@@ -31,8 +31,8 @@ const HomePage = () => {
       name: 'SBL Pots',
       tagline: 'Eco Planters',
       description: 'Biodegradable pots for sustainable gardening',
-      icon: '🪴',
-      color: 'from-amber-500 to-orange-600',
+      icon: '/SBL-Pots.png',
+      color: 'from-white-500 to-white-600',
       path: '/brands/sbl-pots'
     },
     {
