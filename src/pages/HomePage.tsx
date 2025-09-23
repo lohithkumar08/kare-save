@@ -39,7 +39,7 @@ const HomePage = () => {
       name: 'Clayer',
       tagline: 'Natural Clay Products',
       description: 'Traditional clay water bottles with modern IoT features',
-      icon: '/clayer.jpg',
+      icon: '/clayer.png',
       color: 'from-white-500 to-white-600',
       path: '/brands/clayer'
     },
