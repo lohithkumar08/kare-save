@@ -102,7 +102,7 @@ const AboutPage = () => {
         {/* Text */}
         <div className="relative z-10 px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-            About Kare <span className="text-pink-400">💖</span> Save
+             Kare <span className="text-pink-400">💖</span> Save
           </h1>
           <p className="max-w-2xl mx-auto text-lg text-white/90 leading-relaxed">
             We're on a mission to transform waste into wealth and create a sustainable future for
