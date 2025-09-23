@@ -15,7 +15,7 @@ const HomePage = () => {
       name: 'Happy Raithu',
       tagline: 'Organic Fertilizers',
       description: 'Premium vermicompost and bio-fertilizers for healthy plants',
-      icon: '🌱',
+      icon: '/Happy-Raithu.png',
       color: 'from-green-500 to-emerald-600',
       path: '/brands/happy-raithu'
     },
