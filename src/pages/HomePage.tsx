@@ -47,8 +47,8 @@ const HomePage = () => {
       name: 'Neem Brush',
       tagline: 'Zero Plastic Care',
       description: '100% biodegradable neem wood toothbrushes',
-      icon: '🪥',
-      color: 'from-emerald-500 to-teal-600',
+      icon: '/Neem-Brush.png',
+      color: 'from-white-500 to-white-600',
       path: '/brands/neem-brush'
     }
   ];
