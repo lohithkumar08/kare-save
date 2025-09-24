@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import Navigation from "@/components/Navigation";
+
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
 import CartPage from "./pages/CartPage";
@@ -16,8 +17,10 @@ import NotFound from "./pages/NotFound";
 import CheckoutPage from "./pages/CheckoutPage";
 import VolunteerPage from "./pages/VolunteerPage";
 import DonationPage from "./pages/DonationPage";
+// import DonationsPage from "./pages/DonationsPage"; // <-- Add this import
 import Chatbot from "./components/Chatbot";
 import SeekerForm from "./pages/SeekerForm";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -39,13 +42,14 @@ const App = () => (
               <Route path="/volunteer" element={<VolunteerPage />} />
               <Route path="/seeker" element={<SeekerForm />} />
               <Route path="/donate" element={<DonationPage />} />
+              {/* <Route path="/donations" element={<DonationsPage />} /> <-- New route */}
 
               <Route path="/product/:id" element={<ProductDetailPage />} />
               <Route path="/brands/:brandName" element={<BrandPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <Chatbot/>
+            <Chatbot />
           </div>
         </BrowserRouter>
       </TooltipProvider>

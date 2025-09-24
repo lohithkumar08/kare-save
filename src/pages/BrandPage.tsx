@@ -37,8 +37,8 @@ const BrandPage = () => {
       tagline: 'Clean Energy Solutions',
       description: 'Convert waste to cooking gas with our biogas units',
       longDescription: 'Gracious Gas develops innovative biogas technology that transforms organic waste into clean cooking gas. Our units help households and businesses reduce waste while generating renewable energy.',
-      icon: '⚡',
-      color: 'from-blue-500 to-cyan-600',
+      icon: '/gracious-gas-logo.jpg',
+      color: 'from-white-500 to-white-600',
       heroImage: '/assets/biogas-unit.jpg',
       stats: [
         { icon: Users, value: '500+', label: 'Units Installed' },
