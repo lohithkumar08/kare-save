@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Heart, Leaf, Users, Building, DollarSign } from 'lucide-react';
+import { Heart, Leaf, Users, Building } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -65,7 +65,6 @@ const DonationPage = () => {
     setDonorInfo(prev => ({ ...prev, [name]: value }));
   };
 
-  // Fetch existing donations
   const fetchDonations = async () => {
     const { data, error } = await supabase
       .from('donations')
@@ -75,7 +74,7 @@ const DonationPage = () => {
       console.error('Error fetching donations:', error);
       return;
     }
-    setDonations(data as unknown as Donation[]);
+    setDonations(Array.isArray(data) ? (data as Donation[]) : []);
   };
 
   useEffect(() => {
@@ -97,19 +96,18 @@ const DonationPage = () => {
         return;
       }
 
-      const { error } = await (supabase.from('donations') as any)
-  .insert([{
-    name: donorInfo.name,
-    email: donorInfo.email,
-    phone: donorInfo.phone,
-    pan: donorInfo.pan,
-    donation_amount: amount || null,
-    donation_cause: donationPurpose || 'Food Donation',
-    food_amount: donorInfo.foodAmount || null,
-    is_edible: donorInfo.isEdible,
-  }]);
-
-
+      const { error } = await supabase
+        .from('donations')
+        .insert([{
+          name: donorInfo.name,
+          email: donorInfo.email,
+          phone: donorInfo.phone,
+          pan: donorInfo.pan,
+          donation_amount: amount || null,
+          donation_cause: donationPurpose || 'Food Donation',
+          food_amount: donorInfo.foodAmount || null,
+          is_edible: donorInfo.isEdible,
+        }]);
 
       if (error) throw error;
 
@@ -118,7 +116,6 @@ const DonationPage = () => {
         description: "Thank you for your generosity. Our team will contact you shortly."
       });
 
-      // Reset form
       setSelectedAmount('');
       setCustomAmount('');
       setDonationPurpose('');
@@ -148,6 +145,7 @@ const DonationPage = () => {
   return (
     <div className="min-h-screen py-8 bg-black">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <div className="p-4 rounded-full bg-primary/20">
@@ -175,9 +173,7 @@ const DonationPage = () => {
                     return (
                       <div
                         key={cause.id}
-                        className={`p-4 rounded-lg border cursor-pointer transition-all ${
-                          donationPurpose === cause.id ? 'border-primary bg-primary/20' : 'border-border hover:border-primary/50'
-                        }`}
+                        className={`p-4 rounded-lg border cursor-pointer transition-all ${donationPurpose === cause.id ? 'border-primary bg-primary/20' : 'border-border hover:border-primary/50'}`}
                         onClick={() => setDonationPurpose(cause.id)}
                       >
                         <div className="flex items-center gap-3">
@@ -212,7 +208,6 @@ const DonationPage = () => {
                     </Button>
                   ))}
                 </div>
-
                 <div>
                   <Label htmlFor="customAmount">Custom Amount</Label>
                   <Input
@@ -221,7 +216,7 @@ const DonationPage = () => {
                     placeholder="Enter custom amount"
                     value={customAmount}
                     onChange={handleCustomAmountChange}
-                    min="100"
+                    min={100}
                   />
                 </div>
               </CardContent>
@@ -297,9 +292,11 @@ const DonationPage = () => {
                     <Label htmlFor="isEdible">Is the food edible?</Label>
                     <Select
                       value={donorInfo.isEdible}
-                      onValueChange={(val) => setDonorInfo(prev => ({ ...prev, isEdible: val }))}
+                      onValueChange={val => setDonorInfo(prev => ({ ...prev, isEdible: val }))}
                     >
-                      <SelectTrigger><SelectValue placeholder="Select" /></SelectTrigger>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="Yes">Yes</SelectItem>
                         <SelectItem value="No">No</SelectItem>
@@ -351,7 +348,7 @@ const DonationPage = () => {
         </div>
 
         {/* Recent Donations */}
-        <div className="mt-12">
+        {/* <div className="mt-12">
           <h2 className="text-2xl font-bold mb-4 text-white">Recent Donations</h2>
           <div className="space-y-4">
             {donations.map(d => (
@@ -360,14 +357,14 @@ const DonationPage = () => {
                   <p><strong>Name:</strong> {d.name}</p>
                   <p><strong>Email:</strong> {d.email} | <strong>Phone:</strong> {d.phone}</p>
                   <p><strong>Cause:</strong> {d.donation_cause}</p>
-                  <p><strong>Amount:</strong> ₹{d.donation_amount?.toLocaleString() || '0'}</p>
+                  <p><strong>Amount:</strong> ₹{d.donation_amount ?? 0}</p>
                   <p><strong>Food Donation:</strong> {d.food_amount || 'N/A'} ({d.is_edible})</p>
                   <p className="text-xs text-gray-400">{new Date(d.created_at).toLocaleString()}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
-        </div>
+        </div> */}
 
       </div>
     </div>
