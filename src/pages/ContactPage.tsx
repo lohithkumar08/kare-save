@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { MapPin, Phone, Mail, Clock, Send, Leaf } from 'lucide-react';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/lib/supabaseClient'; // make sure this exists
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -31,14 +32,17 @@ const ContactPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([formData]);
+
+      if (error) throw error;
+
       toast({
         title: "Message sent successfully!",
         description: "We'll get back to you within 24 hours.",
       });
-      
+
       setFormData({
         name: '',
         email: '',
@@ -46,7 +50,9 @@ const ContactPage = () => {
         subject: '',
         message: ''
       });
+
     } catch (error) {
+      console.error(error);
       toast({
         title: "Failed to send message",
         description: "Please try again later or contact us directly.",
@@ -129,33 +135,25 @@ const ContactPage = () => {
                     </CardContent>
                   </Card>
                 ))}
-              <Card className="border-0 shadow-soft">
-        <CardContent className="p-6">
-          <h3 className="font-semibold mb-4">Our Team</h3>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><span className="font-medium text-foreground">Siva Kotesh Singaraju</span> – Founder & CEO</li>
-            <li><span className="font-medium text-foreground">Lohith</span> – Operations Manager</li>
-            <li><span className="font-medium text-foreground">Bhavana</span> – Advisor</li>
-          </ul>
-        </CardContent>
-      </Card>
-    </div>
-
-              
+                <Card className="border-0 shadow-soft">
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold mb-4">Our Team</h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li><span className="font-medium text-foreground">Siva Kotesh Singaraju</span> – Founder & CEO</li>
+                      <li><span className="font-medium text-foreground">Lohith</span> – Operations Manager</li>
+                      <li><span className="font-medium text-foreground">Bhavana</span> – Advisor</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
 
               {/* Social Links */}
               <div className="mt-8">
                 <h3 className="font-semibold mb-4">Follow Us</h3>
                 <div className="flex space-x-4">
-                  <Button variant="outline" size="sm">
-                    Instagram
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    LinkedIn
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    Twitter
-                  </Button>
+                  <Button variant="outline" size="sm">Instagram</Button>
+                  <Button variant="outline" size="sm">LinkedIn</Button>
+                  <Button variant="outline" size="sm">Twitter</Button>
                 </div>
               </div>
             </div>
@@ -174,9 +172,7 @@ const ContactPage = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-2">
-                        Full Name *
-                      </label>
+                      <label htmlFor="name" className="block text-sm font-medium mb-2">Full Name *</label>
                       <Input
                         id="name"
                         name="name"
@@ -187,9 +183,7 @@ const ContactPage = () => {
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        Email Address *
-                      </label>
+                      <label htmlFor="email" className="block text-sm font-medium mb-2">Email Address *</label>
                       <Input
                         id="email"
                         name="email"
@@ -204,9 +198,7 @@ const ContactPage = () => {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                        Phone Number
-                      </label>
+                      <label htmlFor="phone" className="block text-sm font-medium mb-2">Phone Number</label>
                       <Input
                         id="phone"
                         name="phone"
@@ -217,9 +209,7 @@ const ContactPage = () => {
                       />
                     </div>
                     <div>
-                      <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                        Subject *
-                      </label>
+                      <label htmlFor="subject" className="block text-sm font-medium mb-2">Subject *</label>
                       <Input
                         id="subject"
                         name="subject"
@@ -232,9 +222,7 @@ const ContactPage = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
-                      Message *
-                    </label>
+                    <label htmlFor="message" className="block text-sm font-medium mb-2">Message *</label>
                     <Textarea
                       id="message"
                       name="message"
@@ -253,9 +241,7 @@ const ContactPage = () => {
                     disabled={isSubmitting}
                     variant="default"
                   >
-                    {isSubmitting ? (
-                      "Sending..."
-                    ) : (
+                    {isSubmitting ? "Sending..." : (
                       <>
                         <Send className="mr-2 h-5 w-5" />
                         Send Message

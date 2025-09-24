@@ -206,7 +206,7 @@ const SeekerForm = () => {
         </Card>
 
         {/* Display existing seekers */}
-        <h2 className="text-2xl font-bold mb-4 text-white">Existing Requests</h2>
+        {/* <h2 className="text-2xl font-bold mb-4 text-white">Existing Requests</h2>
         <div className="space-y-4">
           {seekers.map(seeker => (
             <Card key={seeker.id} className="bg-gray-900 text-white">
@@ -222,7 +222,7 @@ const SeekerForm = () => {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

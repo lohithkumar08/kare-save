@@ -50,7 +50,7 @@ export const products: Product[] = [
     name: 'Home Biogas Unit 2.0',
     description: 'Compact biogas unit for homes. Convert kitchen waste to cooking gas and liquid fertilizer.',
     price: 100,
-    originalPrice: 12999,
+    originalPrice: 1300,
     brand: 'Gracious Gas',
     category: 'Energy',
     image: biogasImg,
