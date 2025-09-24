@@ -80,11 +80,9 @@ const HomePage = () => {
               </Badge>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Kare <Heart className="inline h-12 w-12 md:h-16 md:w-16 text-pink-400 fill-pink-400" /> Save
+              Kare 💖 Save
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-white/90 font-medium">
-              The Caring Cycle
-            </p>
+          
             <p className="text-lg md:text-xl mb-10 text-white/80 max-w-3xl mx-auto leading-relaxed">
               Transform waste into wealth with our eco-friendly products. From organic fertilizers to biogas units, 
               we're creating a sustainable tomorrow, today.
@@ -210,7 +208,7 @@ const HomePage = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Creating a <span className="text-primary">Caring Cycle</span>
+                Creating a <span className="text-primary">Collaborative Care Model</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 Our mission is simple: transform everyday waste into valuable resources. Through our innovative 
@@ -248,7 +246,7 @@ const HomePage = () => {
               <Card className="relative p-8 border-0 shadow-soft">
                 <div className="text-center">
                   <div className="text-6xl mb-6">♻️</div>
-                  <h3 className="text-2xl font-bold mb-4">The Caring Cycle</h3>
+                  <h3 className="text-2xl font-bold mb-4">Collaborative Care Model</h3>
                   <div className="space-y-3 text-sm text-muted-foreground">
                     <div className="flex items-center justify-between">
                       <span>Food Waste</span>

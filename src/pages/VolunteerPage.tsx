@@ -59,19 +59,32 @@ const VolunteerPage = () => {
     setIsLoading(true);
 
     try {
-      const { error } = await supabase
+      // Insert into volunteers
+      const { error: volunteerError } = await supabase
         .from('volunteers')
         .insert({
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
           location: `${formData.address}, ${formData.city}, ${formData.state} - ${formData.pincode}`,
           experience_level: formData.experienceLevel,
           availability: formData.availability,
-          skills: formData.skills
+          skills: formData.skills, // array of strings
+          motivation: formData.motivation
         });
 
-      if (error) throw error;
+      if (volunteerError) {
+        console.error("Insert into volunteers failed:", volunteerError);
+        toast({
+          title: "Submission Failed",
+          description: volunteerError.message,
+          variant: "destructive"
+        });
+        return;
+      }
 
-      // Also save to contact_submissions for admin notification
-      await supabase
+      // Insert into contact_submissions (optional for notifications)
+      const { error: contactError } = await supabase
         .from('contact_submissions')
         .insert({
           name: formData.fullName,
@@ -80,6 +93,10 @@ const VolunteerPage = () => {
           subject: 'Volunteer Application',
           message: `Experience: ${formData.experienceLevel}\nAvailability: ${formData.availability}\nSkills: ${formData.skills.join(', ')}\nMotivation: ${formData.motivation}`
         });
+
+      if (contactError) {
+        console.error("Insert into contact_submissions failed:", contactError);
+      }
 
       toast({
         title: "Application Submitted! 🎉",
@@ -253,138 +270,10 @@ const VolunteerPage = () => {
                 </div>
               </div>
 
-              {/* Volunteer Information */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Volunteer Information</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="experienceLevel">Experience Level *</Label>
-                    <Select 
-                      value={formData.experienceLevel} 
-                      onValueChange={(value) => setFormData(prev => ({ ...prev, experienceLevel: value }))}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select experience level" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="beginner">Beginner</SelectItem>
-                        <SelectItem value="intermediate">Intermediate</SelectItem>
-                        <SelectItem value="experienced">Experienced</SelectItem>
-                        <SelectItem value="expert">Expert</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="availability">Availability *</Label>
-                    <Select 
-                      value={formData.availability} 
-                      onValueChange={(value) => setFormData(prev => ({ ...prev, availability: value }))}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select availability" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="weekends">Weekends Only</SelectItem>
-                        <SelectItem value="weekdays">Weekdays</SelectItem>
-                        <SelectItem value="flexible">Flexible</SelectItem>
-                        <SelectItem value="few-hours-week">Few Hours per Week</SelectItem>
-                        <SelectItem value="full-time">Full Time Commitment</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div>
-                  <Label>Skills & Interests (Select all that apply)</Label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
-                    {skillOptions.map((skill) => (
-                      <div key={skill} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={skill}
-                          checked={formData.skills.includes(skill)}
-                          onCheckedChange={(checked) => handleSkillChange(skill, checked as boolean)}
-                        />
-                        <Label htmlFor={skill} className="text-sm font-normal">
-                          {skill}
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="motivation">Why do you want to volunteer with us?</Label>
-                  <Textarea
-                    id="motivation"
-                    name="motivation"
-                    value={formData.motivation}
-                    onChange={handleInputChange}
-                    placeholder="Tell us about your motivation to volunteer..."
-                    rows={4}
-                  />
-                </div>
-              </div>
-
               <Button type="submit" disabled={isLoading} className="w-full" size="lg">
                 {isLoading ? 'Submitting...' : 'Submit Application'}
               </Button>
             </form>
-          </CardContent>
-        </Card>
-
-        {/* Volunteer Benefits */}
-        <Card className="mt-8 bg-primary/5 border-primary/20">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Heart className="h-5 w-5 text-primary" />
-              Why Volunteer With Us?
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Clock className="h-5 w-5 text-primary mt-1" />
-                  <div>
-                    <h4 className="font-medium">Flexible Timing</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Volunteer according to your schedule and availability
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Users className="h-5 w-5 text-primary mt-1" />
-                  <div>
-                    <h4 className="font-medium">Community Impact</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Make a real difference in your community and environment
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Leaf className="h-5 w-5 text-primary mt-1" />
-                  <div>
-                    <h4 className="font-medium">Learn & Grow</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Gain experience in sustainability and environmental conservation
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Heart className="h-5 w-5 text-primary mt-1" />
-                  <div>
-                    <h4 className="font-medium">Personal Satisfaction</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Experience the joy of giving back and helping others
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>

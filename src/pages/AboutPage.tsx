@@ -53,19 +53,19 @@ const values = [
 // Milestones
 const milestones = [
   { year: "2022", event: "Founded with a vision to create sustainable solutions" },
-  { year: "2023", event: "Introduced helping hands, gracious gas, happy rythu" },
+  { year: "2023", event: "Introduced helping hands, gracious gas, happy raithu" },
   { year: "2024", event: "Introduced SBL pots, clayer" },
   { year: "2025", event: "Working in progress and also introduced neem brush and 33+ customer satisfied" },
 ];
 
-// Caring cycle steps (Energy step uses an image)
 const flowSteps = [
-  { icon: "🥬", title: "Food Waste", description: "Kitchen scraps and organic matter" },
-  { image: "/images/biogas.jpg", title: "Energy", description: "Biogas for cooking and heating" }, // only this uses image
-  { icon: "🌱", title: "Compost", description: "Nutrient-rich fertilizer for plants" },
-  { icon: "🏺", title: "Products", description: "Eco-friendly everyday items" },
-  { icon: "💧", title: "Water", description: "Clean, mineral-rich drinking water" },
+  { image: "/images/foodwaste.jpg", title: "Food Waste", description: "Kitchen scraps and organic matter" },
+  { image: "/images/energy.jpg", title: "Energy", description: "Biogas for cooking and heating" },
+  { image: "/images/Happy-Raithu.png", title: "Compost", description: "Nutrient-rich fertilizer for plants" },
+  { image: "/images/SBL-Pots.png", title: "Pot", description: "Eco-friendly everyday items" },
+  { image: "/images/clayer.png", title: "Water", description: "Clean, mineral-rich drinking water" },
 ];
+
 
 const AboutPage = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -122,7 +122,7 @@ const AboutPage = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">The Caring Cycle</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">The Collaborative Care Model</h2>
             <p className="text-xl text-muted-foreground">How we transform waste into sustainable solutions</p>
           </div>
 
@@ -131,13 +131,10 @@ const AboutPage = () => {
             <div className="hidden md:flex items-center justify-between">
               {flowSteps.map((step, index) => (
                 <div key={index} className="flex flex-col items-center relative">
-                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-300">
-                    {step.image ? (
-                      <img src={step.image} alt={step.title} className="w-12 h-12 object-contain" />
-                    ) : (
-                      <span className="text-3xl">{step.icon}</span>
-                    )}
-                  </div>
+                  <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-300">
+  <img src={step.image} alt={step.title} className="w-12 h-12 object-contain" />
+</div>
+
                   <h3 className="font-semibold mb-2">{step.title}</h3>
                   <p className="text-sm text-muted-foreground text-center max-w-32">{step.description}</p>
                   {index < flowSteps.length - 1 && (
@@ -152,12 +149,9 @@ const AboutPage = () => {
               {flowSteps.map((step, index) => (
                 <div key={index} className="flex items-center space-x-4">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    {step.image ? (
-                      <img src={step.image} alt={step.title} className="w-10 h-10 object-contain" />
-                    ) : (
-                      <span className="text-2xl">{step.icon}</span>
-                    )}
-                  </div>
+  <img src={step.image} alt={step.title} className="w-10 h-10 object-contain" />
+</div>
+
                   <div className="flex-1">
                     <h3 className="font-semibold mb-1">{step.title}</h3>
                     <p className="text-sm text-muted-foreground">{step.description}</p>

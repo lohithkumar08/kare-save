@@ -40,7 +40,7 @@ const Navigation = () => {
               <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 Kare <span className="text-pink-500">💖</span> Save
               </h1>
-              <p className="text-xs text-primary -mt-1">The Caring Cycle</p>
+            
 
             </div>
           </Link>
