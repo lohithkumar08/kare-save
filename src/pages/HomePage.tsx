@@ -80,7 +80,7 @@ const HomePage = () => {
               </Badge>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Kare <Heart className="inline h-12 w-12 md:h-16 md:w-16 text-pink-400 fill-pink-400" /> Save
+              Kar <Heart className="inline h-12 w-12 md:h-16 md:w-16 text-pink-400 fill-pink-400" /> Save
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-white/90 font-medium">
               The Caring Cycle
