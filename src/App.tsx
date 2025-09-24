@@ -17,6 +17,8 @@ import NotFound from "./pages/NotFound";
 import CheckoutPage from "./pages/CheckoutPage";
 import VolunteerPage from "./pages/VolunteerPage";
 import DonationPage from "./pages/DonationPage";
+import RecentDonations from "./pages/RecentDonations"; // <-- New page
+
 // import DonationsPage from "./pages/DonationsPage"; // <-- Add this import
 import Chatbot from "./components/Chatbot";
 import SeekerForm from "./pages/SeekerForm";
@@ -41,6 +43,8 @@ const App = () => (
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/volunteer" element={<VolunteerPage />} />
               <Route path="/seeker" element={<SeekerForm />} />
+              <Route path="/recent-donations" element={<RecentDonations />} /> 
+
               <Route path="/donate" element={<DonationPage />} />
               {/* <Route path="/donations" element={<DonationsPage />} /> <-- New route */}
 
