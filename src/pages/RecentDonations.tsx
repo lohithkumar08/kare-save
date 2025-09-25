@@ -11,7 +11,9 @@ interface Donation {
   donation_amount: number | null;
   donation_cause: string;
   food_amount: string | null;
-  is_edible: string;
+  food_type: string | null;
+  edible_time: string | null;
+  is_edible: string | null;
   created_at: string;
 }
 
@@ -73,12 +75,24 @@ const RecentDonations = () => {
                   <p>
                     <strong>Email:</strong> {d.email} | <strong>Phone:</strong> {d.phone}
                   </p>
-                  <p>
-                    <strong>Amount:</strong> ₹{d.donation_amount?.toLocaleString() || 0}
-                  </p>
-                  <p>
-                    <strong>Food Donation:</strong> {d.food_amount || 'N/A'} ({d.is_edible})
-                  </p>
+                  {d.donation_amount ? (
+                    <p>
+                      <strong>Amount:</strong> ₹{d.donation_amount.toLocaleString()}
+                    </p>
+                  ) : null}
+                  {d.food_amount ? (
+                    <>
+                      <p>
+                        <strong>Food Donation:</strong> {d.food_amount} ({d.is_edible})
+                      </p>
+                      <p>
+                        <strong>Food Type:</strong> {d.food_type || 'N/A'}
+                      </p>
+                      <p>
+                        <strong>Estimated Edible Time:</strong> {d.edible_time || 'N/A'}
+                      </p>
+                    </>
+                  ) : null}
                   <p className="text-xs text-gray-400">
                     {new Date(d.created_at).toLocaleString()}
                   </p>
