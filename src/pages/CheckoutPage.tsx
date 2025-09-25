@@ -49,38 +49,38 @@ const CheckoutPage = () => {
     try {
       // 1️⃣ Insert customer
       const { data: customerData, error: customerError } = await supabase
-        .from('customers')
-        .insert({
-          full_name: customerInfo.fullName,
-          email: customerInfo.email,
-          phone: customerInfo.phone,
-          address: customerInfo.address,
-          city: customerInfo.city,
-          state: customerInfo.state,
-          pincode: customerInfo.pincode,
-          notes: customerInfo.notes
-        })
-        .select();
-
-      if (customerError) throw customerError;
-      if (!customerData || customerData.length === 0) throw new Error('Customer creation failed');
-      customer = customerData[0];
+  .from("customers")
+  .insert({
+    full_name: customerInfo.fullName,
+    email: customerInfo.email,
+    phone: customerInfo.phone,
+    address: customerInfo.address,
+    city: customerInfo.city,
+    state: customerInfo.state,
+    pincode: customerInfo.pincode,
+    notes: customerInfo.notes,
+  })
+  .select()
+  .single();
+if (customerError) throw customerError;
+const customer = customerData;
 
       // 2️⃣ Insert order
       const shippingAddress = `${customerInfo.address}, ${customerInfo.city}, ${customerInfo.state} - ${customerInfo.pincode}`;
       const { data: orderData, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          customer_id: customer.id,
-          total_amount: getFinalTotal(),
-          shipping_address: shippingAddress,
-          status: 'confirmed'
-        })
-        .select();
+  .from("orders")
+  .insert({
+    customer_id: customer.id,
+    total_amount: getFinalTotal(),
+    shipping_address: shippingAddress,
+    status: "confirmed",
+  })
+  .select()
+  .single();
 
-      if (orderError) throw orderError;
-      if (!orderData || orderData.length === 0) throw new Error('Order creation failed');
-      order = orderData[0];
+if (orderError) throw orderError;
+const order = orderData;
+
 
       // 3️⃣ Insert order items
       const orderItems = items.map(item => ({
