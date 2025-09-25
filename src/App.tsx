@@ -22,6 +22,7 @@ import RecentDonations from "./pages/RecentDonations"; // <-- New page
 // import DonationsPage from "./pages/DonationsPage"; // <-- Add this import
 import Chatbot from "./components/Chatbot";
 import SeekerForm from "./pages/SeekerForm";
+import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
               <Route path="/volunteer" element={<VolunteerPage />} />
               <Route path="/seeker" element={<SeekerForm />} />
               <Route path="/recent-donations" element={<RecentDonations />} /> 
+              <Route path="/login" element = {<LoginPage/>}/>
 
               <Route path="/donate" element={<DonationPage />} />
               {/* <Route path="/donations" element={<DonationsPage />} /> <-- New route */}
