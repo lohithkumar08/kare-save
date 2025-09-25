@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,21 +7,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/lib/supabaseClient';
-import { useNavigate } from 'react-router-dom';
 
 const predefinedAmounts = [500, 1000, 2500, 5000, 10000, 25000];
 
 const DonationPage = () => {
 
-  const navigate = useNavigate();
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    const session = supabase.auth.getSession().then(({ data }) => setUser(data.session?.user));
-    if (!user) {
-      navigate('/login'); // redirect to login if not logged in
-    }
-  }, [user]);
   
   const { toast } = useToast();
   const [donationType, setDonationType] = useState<'food' | 'money' | null>(null);

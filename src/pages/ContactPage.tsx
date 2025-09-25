@@ -151,9 +151,15 @@ const ContactPage = () => {
               <div className="mt-8">
                 <h3 className="font-semibold mb-4">Follow Us</h3>
                 <div className="flex space-x-4">
-                  <Button variant="outline" size="sm">Instagram</Button>
-                  <Button variant="outline" size="sm">LinkedIn</Button>
-                  <Button variant="outline" size="sm">Twitter</Button>
+                   <a href="https://www.instagram.com/kare_love_save?igsh=dzkxZGt1anc5N25s" target="_blank" rel="noopener noreferrer">
+    <Button variant="outline" size="sm">Instagram</Button>
+  </a>
+  <a href="https://www.linkedin.com/in/kare-save-83a914386?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer">
+    <Button variant="outline" size="sm">LinkedIn</Button>
+  </a>
+  <a href="https://x.com/kare_save?t=uPliLcXlGUoRHznwp85ixg&s=08" target="_blank" rel="noopener noreferrer">
+    <Button variant="outline" size="sm">Twitter</Button>
+  </a>
                 </div>
               </div>
             </div>
