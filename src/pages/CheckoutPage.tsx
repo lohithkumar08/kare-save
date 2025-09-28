@@ -49,48 +49,59 @@ const CheckoutPage = () => {
     try {
       // 1️⃣ Insert customer
       const { data: customerData, error: customerError } = await supabase
-  .from("customers")
-  .insert({
-    full_name: customerInfo.fullName,
-    email: customerInfo.email,
-    phone: customerInfo.phone,
-    address: customerInfo.address,
-    city: customerInfo.city,
-    state: customerInfo.state,
-    pincode: customerInfo.pincode,
-    notes: customerInfo.notes,
-  })
-  .select()
-  .single();
-if (customerError) throw customerError;
-const customer = customerData;
+        .from("customers")
+        .insert({
+          full_name: customerInfo.fullName,
+          email: customerInfo.email,
+          phone: customerInfo.phone,
+          address: customerInfo.address,
+          city: customerInfo.city,
+          state: customerInfo.state,
+          pincode: customerInfo.pincode,
+          notes: customerInfo.notes,
+        })
+        .select()
+        .single();
+
+      if (customerError) throw customerError;
+      customer = customerData;
 
       // 2️⃣ Insert order
       const shippingAddress = `${customerInfo.address}, ${customerInfo.city}, ${customerInfo.state} - ${customerInfo.pincode}`;
       const { data: orderData, error: orderError } = await supabase
-  .from("orders")
-  .insert({
-    customer_id: customer.id,
-    total_amount: getFinalTotal(),
-    shipping_address: shippingAddress,
-    status: "confirmed",
-  })
-  .select()
-  .single();
+        .from("orders")
+        .insert({
+          customer_id: customer.id,
+          total_amount: getFinalTotal(),
+          shipping_address: shippingAddress,
+          status: "confirmed",
+        })
+        .select()
+        .single();
 
-if (orderError) throw orderError;
-const order = orderData;
-
+      if (orderError) throw orderError;
+      order = orderData;
 
       // 3️⃣ Insert order items
       const orderItems = items.map(item => ({
         order_id: order.id,
         product_id: item.id,
         quantity: item.quantity,
-        price: item.price
+        price: item.price,
       }));
-      const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
-      if (itemsError) throw itemsError;
+
+      const { data: itemsData, error: itemsError } = await supabase
+        .from("order_items")
+        .insert(orderItems)
+        .select();
+
+      if (itemsError) {
+        console.error("❌ Order items insert error:", itemsError);
+        console.error("⚠️ Data we tried to insert:", orderItems);
+        throw itemsError;
+      }
+
+      console.log("✅ Order items inserted:", itemsData);
 
       // ✅ Success
       clearCart();
@@ -206,7 +217,9 @@ const order = orderData;
                     <Shield className="h-4 w-4 text-green-500" />
                     <span className="font-medium">Cash on Delivery</span>
                   </div>
-                  <p className="text-sm text-white">Pay when your eco-friendly products are delivered to your doorstep.</p>
+                  <p className="text-sm text-white">
+                    Pay when your eco-friendly products are delivered to your doorstep.
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -225,7 +238,9 @@ const order = orderData;
                   <div key={item.id} className="flex justify-between items-center">
                     <div className="flex-1">
                       <h4 className="font-medium text-sm">{item.name}</h4>
-                      <p className="text-xs text-muted-foreground">Qty: {item.quantity} × {formatPrice(item.price)}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Qty: {item.quantity} × {formatPrice(item.price)}
+                      </p>
                     </div>
                     <span className="font-medium">{formatPrice(item.price * item.quantity)}</span>
                   </div>
@@ -234,11 +249,25 @@ const order = orderData;
                 <Separator />
                 <div className="space-y-2">
                   <div className="flex justify-between"><span>Subtotal</span><span>{formatPrice(total)}</span></div>
-                  <div className="flex justify-between"><span>Delivery Fee</span><span>{getDeliveryFee() === 0 ? <span className="text-green-600">FREE</span> : formatPrice(getDeliveryFee())}</span></div>
+                  <div className="flex justify-between">
+                    <span>Delivery Fee</span>
+                    <span>
+                      {getDeliveryFee() === 0 ? (
+                        <span className="text-green-600">FREE</span>
+                      ) : (
+                        formatPrice(getDeliveryFee())
+                      )}
+                    </span>
+                  </div>
                 </div>
                 <Separator />
-                <div className="flex justify-between text-lg font-semibold"><span>Total</span><span>{formatPrice(getFinalTotal())}</span></div>
-                <p className="text-xs text-center text-muted-foreground">By placing this order, you agree to our terms and conditions</p>
+                <div className="flex justify-between text-lg font-semibold">
+                  <span>Total</span>
+                  <span>{formatPrice(getFinalTotal())}</span>
+                </div>
+                <p className="text-xs text-center text-muted-foreground">
+                  By placing this order, you agree to our terms and conditions
+                </p>
               </CardContent>
             </Card>
           </div>

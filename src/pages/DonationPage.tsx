@@ -11,8 +11,6 @@ import { supabase } from '@/lib/supabaseClient';
 const predefinedAmounts = [500, 1000, 2500, 5000, 10000, 25000];
 
 const DonationPage = () => {
-
-  
   const { toast } = useToast();
   const [donationType, setDonationType] = useState<'food' | 'money' | null>(null);
   const [donorInfo, setDonorInfo] = useState({

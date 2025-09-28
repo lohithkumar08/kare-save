@@ -23,7 +23,7 @@ export interface Product {
 export const products: Product[] = [
   // Happy Raithu Products
   {
-    id: 'hr-001',
+    id: 'Premium Vermicompost',
     name: 'Premium Vermicompost',
     description: 'Organic vermicompost made from kitchen waste. Rich in nutrients, perfect for all plants.',
     price: 60,
@@ -46,7 +46,7 @@ export const products: Product[] = [
   
   // Gracious Gas Products
   {
-    id: 'gg-001',
+    id: 'Home Biogas Unit 2.0',
     name: 'Home Biogas Unit 2.0',
     description: 'Compact biogas unit for homes. Convert kitchen waste to cooking gas and liquid fertilizer.',
     price: 100,
@@ -68,7 +68,7 @@ export const products: Product[] = [
   
   // SBL Pots Products
   {
-    id: 'sbl-001',
+    id: 'Eco Planter',
     name: 'Eco Planter ',
     description: 'Set of 3 biodegradable pots made from coconut coir and natural fibers.',
     price: 120,
@@ -91,7 +91,7 @@ export const products: Product[] = [
 
   // Clayer Products
   {
-    id: 'cl-001',
+    id: 'Natural Clay Water Bottle',
     name: 'Natural Clay Water Bottle',
     description: 'Handcrafted clay water bottle that keeps water naturally cool and adds minerals.',
     price: 260,
@@ -115,7 +115,7 @@ export const products: Product[] = [
   // Neem Brush Products
   
   {
-    id: 'nb-002',
+    id: 'neemsh',
     name: 'neemsh',
     description: 'Colorful neem wood toothbrushes designed specifically for children.',
     price: 23,

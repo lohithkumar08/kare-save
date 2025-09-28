@@ -18,7 +18,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import VolunteerPage from "./pages/VolunteerPage";
 import DonationPage from "./pages/DonationPage";
 import RecentDonations from "./pages/RecentDonations"; // <-- New page
-
+import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 // import DonationsPage from "./pages/DonationsPage"; // <-- Add this import
 import Chatbot from "./components/Chatbot";
 import SeekerForm from "./pages/SeekerForm";
@@ -47,8 +47,9 @@ const App = () => (
               <Route path="/recent-donations" element={<RecentDonations />} /> 
               {/* <Route path="/login" element = {<LoginPage/>}/> */}
 
-              <Route path="/donate" element={<DonationPage />} />
+              <Route path="/donate" element={<DonationPage />} /> {/* This line was already present */}
               {/* <Route path="/donations" element={<DonationsPage />} /> <-- New route */}
+              <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
 
               <Route path="/product/:id" element={<ProductDetailPage />} />
               <Route path="/brands/:brandName" element={<BrandPage />} />
