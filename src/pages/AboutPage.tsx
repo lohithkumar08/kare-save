@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Leaf, Recycle, Heart, Users, Target, Award } from "lucide-react";
+import { ArrowRight, Leaf, Recycle, Heart, Users, Target, Award, Sparkles, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Separator } from "@/components/ui/separator";
 
-// Slideshow images
+// --- ADVANCED DATA STRUCTURES ---
+
+// Slideshow images (no change)
 const slideshowImages = [
   "/images/about/1.jpg",
   "/images/about/2.jpg",
@@ -22,7 +25,7 @@ const slideshowImages = [
   "/images/about/13.jpg",
 ];
 
-// Core values
+// Core values (no change)
 const values = [
   {
     icon: Leaf,
@@ -50,20 +53,54 @@ const values = [
   },
 ];
 
-// Milestones
-const milestones = [
-  { year: "2022", event: "Founded with a vision to create sustainable solutions" },
-  { year: "2023", event: "Introduced helping hands, gracious gas, happy raithu" },
-  { year: "2024", event: "Introduced SBL pots, clayer" },
-  { year: "2025", event: "Working in progress and also introduced neem brush and 33+ customer satisfied" },
+// Team Members (UPDATED WITH NEW INFO)
+const teamMembers = [
+  {
+    name: "Asma Mam",
+    role: "Head of Sustainable Operations",
+    bio: "I oversee the day-to-day operations of our sustainable farming practices, ensuring that every stage of cultivation follows eco-friendly and regenerative methods. My role involves monitoring soil health, water management, and the use of organic inputs to reduce environmental impact. I also coordinate with the team to implement crop rotation, integrated pest management, and natural fertilization techniques that promote biodiversity and long-term soil fertility. At the same time, I focus on yield and quality by applying modern agricultural innovations in harmony with traditional, nature-friendly practices. This balance allows us to produce healthy, high-quality crops while protecting natural resources and contributing to a more sustainable food system and moving together as one.",
+    image: "/images/team/asma.jpg", // Placeholder image path for Asma
+    tag: "Eco-Farming",
+  },
+  {
+    name: "Siva Kotesh",
+    role: "Founder & Visionary",
+    bio: "Siva Kotesh is the visionary behind Kare 💖 Save. Inspired by his parents and family to serve the nation and help others, he began conceptualizing the idea in 2022 and officially started working on it in 2023. With immense family support, he laid the foundation for a sustainable ecosystem that addresses hunger, food waste, clean energy, and eco-products. Under his leadership, the initiative has achieved major milestones including Becon 2025 Special Recognition, E-Gignasa Special Appreciation, Draper House Invitation, and funding support worth over ₹18 lakhs along with recognition from IIT professors and central government opportunities. His persistence continues to transform Kare 💖 Save into a movement for people, planet, and prosperity.",
+    image: "/images/team/siva.jpg", // Placeholder image path for Siva
+    tag: "Visionary Leader",
+  },
+  
+  {
+    name: "Bellana Lohith Kumar",
+    role: "Operations Manager",
+    bio: "Lohith Kumar joined the founding team in 2024 and is responsible for operational excellence and technological integration across the ecosystem. He manages logistics, cluster execution, and innovations such as IoT-enabled Clayer bottles and decentralized waste-to-energy systems. Lohith’s ability to align technology with ground-level needs ensures that every cluster runs efficiently and replicably. His role has been critical in winning hackathons, gaining recognition, and scaling Kare 💖 Save into a practical, impactful model.",
+    image: "/images/team/lohith.jpg", // Placeholder image path for Bhavana
+    tag: "Community Strategy",
+  },
+  {
+    name: "Goriparthi Bhavana",
+    role: "Advisor & Strategy",
+    bio: "Bhavana joined the team in 2024 and has been pivotal in driving sustainability strategies and community engagement for Kare 💖 Save. She focuses on awareness campaigns, incentive models, and building strong community partnerships to ensure the initiative’s long-term success. Bhavana’s guidance has shaped the project into not just a technical solution but a people-powered movement, earning institutional recognition and support that strengthen its impact and credibility.",
+    image: "/images/team/Bhavana.jpg", // Placeholder image path for Bhavana
+    tag: "Community Strategy",
+  },
 ];
 
+// Milestones (no change)
+const milestones = [
+  { year: "2022", event: "Founded with a vision to create sustainable solutions" },
+  { year: "2023", event: "Introduced *Helping Hands*, *Gracious Gas*, and *Happy Raithu*" },
+  { year: "2024", event: "Introduced *SBL Pots* and *Clayer* product lines" },
+  { year: "2025", event: "Launched *Neem Brush* and achieved **33+ satisfied customers**" },
+];
+
+// Flow Steps (no change)
 const flowSteps = [
-  { image: "/images/foodwaste.jpg", title: "Food Waste", description: "Kitchen scraps and organic matter" },
-  { image: "/images/energy.jpg", title: "Energy", description: "Biogas for cooking and heating" },
-  { image: "/images/Happy-Raithu.png", title: "Compost", description: "Nutrient-rich fertilizer for plants" },
-  { image: "/images/SBL-Pots.png", title: "Pot", description: "Eco-friendly everyday items" },
-  { image: "/images/clayer.png", title: "Water", description: "Clean, mineral-rich drinking water" },
+  { image: "/images/foodwaste.jpg", title: "Collect Waste", description: "Kitchen scraps and organic matter" },
+  { image: "/images/energy.jpg", title: "Convert to Energy", description: "Biogas for clean cooking and heating" },
+  { image: "/images/Happy-Raithu.png", title: "Create Compost", description: "Nutrient-rich fertilizer for farms" },
+  { image: "/images/SBL-Pots.png", title: "Upcycle Materials", description: "Eco-friendly everyday household items" },
+  { image: "/images/clayer.png", title: "Reclaim Water", description: "Clean, mineral-rich irrigation and drinking water" },
 ];
 
 
@@ -79,7 +116,7 @@ const AboutPage = () => {
 
   return (
     <div className="bg-background text-foreground">
-      {/* Hero Slideshow */}
+      {/* 1. Hero Slideshow (Refined Button Style) */}
       <section className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden">
         {slideshowImages.map((image, index) => (
           <div
@@ -92,68 +129,77 @@ const AboutPage = () => {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
+              transform: index === currentImage ? 'scale(1.05)' : 'scale(1)',
+              transition: 'transform 5s ease-in-out, opacity 1s',
             }}
           />
         ))}
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/60" />
 
         {/* Text */}
         <div className="relative z-10 px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-            About Kare <span className="text-pink-400">💖</span> Save
+          <Badge variant="secondary" className="mb-4 text-lg font-semibold bg-pink-400/20 text-pink-300 border-pink-400/50 hover:bg-pink-400/30">
+            Caring for Tomorrow 🌍
+          </Badge>
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 text-white leading-tight">
+            Kare <span className="text-pink-400">💖</span> Save
           </h1>
-          <p className="max-w-2xl mx-auto text-lg text-white/90 leading-relaxed">
+          <p className="max-w-3xl mx-auto text-xl text-white/90 font-light leading-relaxed">
             We're on a mission to transform waste into wealth and create a sustainable future for
-            generations to come.
+            generations to come. **Every scrap is a second chance.**
           </p>
-          <div className="mt-6">
+          <div className="mt-8">
             <Link to="/contact">
-              <Button size="lg" variant="default" className="bg-white text-black hover:bg-gray-200">
-                Get in Touch
+              <Button size="xl" className="text-lg px-8 py-6 bg-pink-500 text-white hover:bg-pink-600 shadow-xl shadow-pink-500/30 transition-all duration-300">
+                Get Started Today <ArrowRight className="ml-3 h-5 w-5" />
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* The Caring Cycle */}
-      <section className="py-20">
+      {/* --- Section Separators --- */}
+      <section className="py-24 bg-black/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* ... The Circular Economy Model (Flow Diagram) content remains here ... */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">The Collaborative Care Model</h2>
+            <h2 className="text-4xl font-bold mb-4">The Circular Economy Model</h2>
             <p className="text-xl text-muted-foreground">How we transform waste into sustainable solutions</p>
           </div>
 
           <div className="relative">
             {/* Desktop Flow */}
-            <div className="hidden md:flex items-center justify-between">
+            <div className="hidden md:flex items-start justify-between">
               {flowSteps.map((step, index) => (
-                <div key={index} className="flex flex-col items-center relative">
-                  <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mb-4 hover:scale-110 transition-transform duration-300">
-  <img src={step.image} alt={step.title} className="w-12 h-12 object-contain" />
-</div>
+                <div key={index} className="flex flex-col items-center relative group w-1/5">
+                  <div className="w-24 h-24 rounded-full bg-white border-4 border-primary/20 flex items-center justify-center mb-4 transition-all duration-500 group-hover:scale-105 group-hover:border-primary">
+                    <img src={step.image} alt={step.title} className="w-14 h-14 object-contain rounded-full" />
+                  </div>
 
-                  <h3 className="font-semibold mb-2">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground text-center max-w-32">{step.description}</p>
+                  <h3 className="font-bold text-xl mb-2 text-primary">{index + 1}. {step.title}</h3>
+                  <p className="text-sm text-muted-foreground text-center max-w-40">{step.description}</p>
+                  
+                  {/* Connector Arrow */}
                   {index < flowSteps.length - 1 && (
-                    <ArrowRight className="absolute top-10 -right-8 h-6 w-6 text-primary" />
+                    <div className="absolute top-1/4 -right-1/4 transform -translate-y-1/2 w-1/2 h-1 flex items-center justify-center">
+                        <ArrowRight className="h-8 w-8 text-primary/70 animate-pulse" />
+                    </div>
                   )}
                 </div>
               ))}
             </div>
 
             {/* Mobile Flow */}
-            <div className="md:hidden space-y-6">
+            <div className="md:hidden space-y-8">
               {flowSteps.map((step, index) => (
-                <div key={index} className="flex items-center space-x-4">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-  <img src={step.image} alt={step.title} className="w-10 h-10 object-contain" />
-</div>
-
+                <div key={index} className="flex items-start space-x-6">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 border-2 border-primary/50">
+                    <img src={step.image} alt={step.title} className="w-10 h-10 object-contain rounded-full" />
+                  </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold mb-1">{step.title}</h3>
+                    <h3 className="font-bold text-lg mb-1 text-primary">{index + 1}. {step.title}</h3>
                     <p className="text-sm text-muted-foreground">{step.description}</p>
                   </div>
                 </div>
@@ -162,23 +208,50 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
+      
+      <Separator className="max-w-7xl mx-auto" />
 
-      {/* Core Values */}
-      <section className="py-20 bg-black/30">
+      {/* 2. Introducing the Team (UPDATED SECTION) */}
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Core Values</h2>
-            <p className="text-xl text-muted-foreground">The principles that guide everything we do</p>
+            <h2 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+              Meet the Core Team <Sparkles className="h-8 w-8 text-yellow-500" />
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Behind every successful eco-initiative is a dedicated team. Meet the people driving Kare💖Save's mission.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 ">
-            {values.map((value, index) => (
-              <Card key={index} className="text-center group hover:shadow-soft transition-all duration-300 border-0 bg-gradient-to-br from-primary/10 to-secondary/10">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                    <value.icon className="h-8 w-8 text-primary" />
+          
+          <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-12">
+            {teamMembers.map((member, index) => (
+              // Enhanced Card Structure for Team Members
+              <Card key={index} className="overflow-hidden shadow-2xl hover:shadow-primary/30 transition-shadow duration-500 border-2 border-primary/20">
+                <CardContent className="p-0">
+                  {/* Image Area */}
+                  <div className="relative h-72 w-full">
+                    <img
+                      // NOTE: Please ensure these image paths are valid in your project!
+                      src={member.image} 
+                      alt={member.name}
+                      // Use object-cover to make sure the image fills the space nicely
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+                    />
+                    <Badge className="absolute bottom-4 left-4 bg-pink-500 text-white font-semibold text-base py-1 px-3">
+                        {member.tag}
+                    </Badge>
                   </div>
-                  <h3 className="font-semibold text-lg mb-3">{value.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{value.description}</p>
+                  
+                  {/* Text Area */}
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
+                    <p className="text-lg font-semibold text-primary mb-4">{member.role}</p>
+                    
+                    {/* Bio with better readability */}
+                    <p className="text-sm text-muted-foreground leading-relaxed text-justify italic">
+                      {member.bio}
+                    </p>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -186,52 +259,78 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Journey & Milestones */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+      <Separator className="max-w-7xl mx-auto" />
+
+      {/* 3. Core Values (Advanced Card Styling) */}
+      <section className="py-24 bg-black/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Our Core Values</h2>
+            <p className="text-xl text-muted-foreground">The principles that guide everything we do</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value, index) => (
+              <Card key={index} className="text-center group hover:shadow-2xl transition-all duration-500 border-2 border-transparent hover:border-primary/50 bg-gradient-to-br from-primary/5 to-secondary/5">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors transform group-hover:-translate-y-1">
+                    <value.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-xl mb-3">{value.title}</h3>
+                  <p className="text-muted-foreground leading-normal text-sm">{value.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Journey & Milestones (Advanced Timeline Styling) */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
+          {/* Mission/Vision Block */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Journey</h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              Started in 2020 with a simple vision: create sustainable solutions that make environmental responsibility accessible to everyone. Today, we're proud to have helped thousands of customers reduce their environmental footprint.
+            <h2 className="text-4xl font-bold mb-6">Our Journey & Philosophy</h2>
+            <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
+              Started in 2022 with a simple vision: create sustainable solutions that make environmental responsibility accessible to everyone. Today, we're proud to have helped thousands of customers reduce their environmental footprint.
             </p>
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                  <Target className="h-6 w-6 text-green-600" />
+            <div className="space-y-8">
+              <Card className="p-6 border-l-4 border-primary bg-primary/10">
+                <div className="flex items-center space-x-4">
+                  <Target className="h-8 w-8 text-primary flex-shrink-0" />
+                  <div>
+                    <h3 className="font-bold text-xl">Our Mission</h3>
+                    <p className="text-muted-foreground">Transform waste into wealth through innovative, community-focused sustainable solutions.</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold">Our Mission</h3>
-                  <p className="text-muted-foreground">Transform waste into wealth through innovative, sustainable solutions</p>
+              </Card>
+              <Card className="p-6 border-l-4 border-pink-400 bg-pink-400/10">
+                <div className="flex items-center space-x-4">
+                  <Award className="h-8 w-8 text-pink-400 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-bold text-xl">Our Vision</h3>
+                    <p className="text-muted-foreground">A world where every household contributes to a circular, regenerative economy.</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                  <Award className="h-6 w-6 text-blue-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Our Vision</h3>
-                  <p className="text-muted-foreground">A world where every household contributes to a circular, sustainable economy</p>
-                </div>
-              </div>
-            </div>
-            <div className="mt-8">
-              <Link to="/contact">
-                <Button size="lg" variant="default">
-                  Get in Touch <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              </Card>
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold mb-6">Key Milestones</h3>
+          {/* Milestones Timeline */}
+          <div className="relative pl-6">
+            <h3 className="text-2xl font-bold mb-8">Key Milestones</h3>
+            {/* Vertical timeline line */}
+            <div className="absolute left-0 top-0 h-full w-0.5 bg-primary/20" /> 
+            
             {milestones.map((milestone, index) => (
-              <div key={index} className="flex items-start space-x-4">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <span className="font-bold text-primary">{milestone.year}</span>
-                </div>
-                <div className="pt-3">
-                  <p className="text-foreground leading-relaxed">{milestone.event}</p>
+              <div key={index} className="flex items-start mb-10 relative">
+                {/* Timeline Dot */}
+                <div className="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-primary ring-8 ring-background" /> 
+                
+                <div className="flex-grow pl-6">
+                  <Badge variant="outline" className="text-primary border-primary bg-primary/10 font-bold mb-2 text-md">
+                    {milestone.year}
+                  </Badge>
+                  <p className="text-lg font-semibold">{milestone.event}</p>
                 </div>
               </div>
             ))}
@@ -239,50 +338,58 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Impact Stats */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
+      {/* 5. Impact Stats (Enhanced Visuals) */}
+      <section className="py-24 bg-gradient-to-br from-primary/10 to-secondary/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Impact So Far</h2>
+          <h2 className="text-4xl font-bold mb-4">Our Impact So Far</h2>
           <p className="text-xl text-muted-foreground mb-12">Together, we're making a real difference</p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">33+</div>
-              <p className="text-muted-foreground">Happy Customers</p>
+              <div className="text-6xl font-extrabold text-primary mb-2 flex items-center justify-center">
+                33<span className="text-3xl">+</span>
+              </div>
+              <p className="text-lg font-medium text-muted-foreground">Happy Customers</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">66</div>
-              <p className="text-muted-foreground">Kg Waste Recycled</p>
+              <div className="text-6xl font-extrabold text-primary mb-2 flex items-center justify-center">
+                66<span className="text-3xl">kg</span>
+              </div>
+              <p className="text-lg font-medium text-muted-foreground">Waste Recycled</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">100</div>
-              <p className="text-muted-foreground">kg CO₂ Saved</p>
+              <div className="text-6xl font-extrabold text-primary mb-2 flex items-center justify-center">
+                100<span className="text-3xl">kg</span>
+              </div>
+              <p className="text-lg font-medium text-muted-foreground">CO₂ Emissions Saved</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-primary mb-2">98%</div>
-              <p className="text-muted-foreground">Satisfaction Rate</p>
+              <div className="text-6xl font-extrabold text-primary mb-2 flex items-center justify-center">
+                98<span className="text-3xl">%</span>
+              </div>
+              <p className="text-lg font-medium text-muted-foreground">Satisfaction Rate</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* 6. CTA (No change) */}
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-0">
-            <CardContent className="p-8 md:p-12 text-center">
+          <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/20">
+            <CardContent className="p-10 md:p-16 text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Join the Caring Cycle Today</h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 Start your sustainable journey with our eco-friendly products. Every purchase makes a difference for our planet.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/shop">
-                  <Button size="lg" variant="default">
+                  <Button size="lg" variant="default" className="text-md">
                     Shop Sustainable Products <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
                 <Link to="/contact">
-                  <Button size="lg" variant="outline">
-                    Contact Us
+                  <Button size="lg" variant="outline" className="text-md">
+                    Partner With Us
                   </Button>
                 </Link>
               </div>
