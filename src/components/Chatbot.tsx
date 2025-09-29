@@ -14,7 +14,7 @@ const botResponses = [
         keywords: ['product', 'offer', 'line', 'list', 'उत्पाद', 'ఉత్పత్తులు', 'అందించు'],
         response: {
             'en-US': 'We offer 5 eco-friendly product lines: Happy Raithu (**vermicompost**), Gracious Gas (**biogas units**), SBL Pots (eco gardening pots), Clayer (clay water bottles), and Neem Brush (biodegradable toothbrushes).',
-            'hi-IN': 'हम 5 इको-फ्रेंडली उत्पाद लाइन्स पेश करते हैं: हैप्पी रैथु (**వర్మీ कंपోస్ట్**), ग्रेशियस गैस (**बायोग్యాస్ యూనిట్స్**), SBL Pots (इको गार्डनिंग पॉट्स), Clayer (क्ले वाटर बॉटल्स), और नीम ब्रश (बायोडिग्रेडेबल टूथब्रश)।',
+            'hi-IN': 'हम 5 इको-फ्रेंडली उत्पाद लाइन्स पेश करते हैं: हैप्पी रैथु (**वर्मी कंपोस्ट**), ग्रेशियस गैस (**बायोगैस यूनिट्स**), SBL Pots (इको गार्डनिंग पॉट्स), Clayer (क्ले वाटर बॉटल्स), और नीम ब्रश (बायोडिग्रेडेबल टूथब्रश)।',
             'te-IN': 'మేము 5 ఎకో-ఫ్రెండ్లీ ఉత్పత్తి లైన్లను అందిస్తున్నాం: హ్యాపీ రైతు (**వర్మికంపోస్ట్**), గ్రేసియస్ గ్యాస్ (**బయో గ్యాస్ యూనిట్స్**), SBL Pots (ఎకో గార్డెనింగ్ పాన్ల), Clayer (మట్టి నీటి బాటిల్స్), మరియు Neem Brush (బయోడిగ్రాడబుల్ టూత్‌బ్రష్).',
         },
         suggestions: {
@@ -80,30 +80,35 @@ interface Message {
     timestamp: string;
 }
 
-// --- Typing Indicator (Retained) ---
+// --- Typing Indicator (DARK MODE) ---
 const TypingIndicator = () => (
-    <div className="bg-white p-3 rounded-2xl text-gray-900 text-sm shadow-sm max-w-[80%] flex items-center gap-2">
-      <Bot className="h-4 w-4 text-green-700" />
+    // Changed bg-white to bg-gray-700, text-gray-900 to text-gray-100, and border removed
+    <div className="bg-gray-700 p-3 rounded-2xl text-gray-100 text-sm shadow-sm max-w-[80%] flex items-center gap-2">
+      <Bot className="h-4 w-4 text-green-400" /> {/* Adjusted bot icon color for dark background */}
       <div className="flex space-x-1">
-        <span className="w-1.5 h-1.5 bg-green-700 rounded-full animate-bounce-dot" style={{ animationDelay: '0ms' }}></span>
-        <span className="w-1.5 h-1.5 bg-green-700 rounded-full animate-bounce-dot" style={{ animationDelay: '200ms' }}></span>
-        <span className="w-1.5 h-1.5 bg-green-700 rounded-full animate-bounce-dot" style={{ animationDelay: '400ms' }}></span>
+        <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-bounce-dot" style={{ animationDelay: '0ms' }}></span> {/* Adjusted dot color */}
+        <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-bounce-dot" style={{ animationDelay: '200ms' }}></span>
+        <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-bounce-dot" style={{ animationDelay: '400ms' }}></span>
       </div>
     </div>
 );
-// --- Message Bubble (Retained) ---
+
+// --- Message Bubble (DARK MODE) ---
 const MessageBubble: React.FC<{ msg: Message }> = ({ msg }) => (
     <div key={msg.id} className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'}`}>
         <div 
             className={cn(
                 'max-w-[80%] p-3 rounded-xl text-sm shadow-md', 
                 msg.isBot 
-                    ? 'bg-white text-gray-900 border border-gray-200 rounded-bl-sm'
+                    // Changed bg-white to bg-gray-700, text-gray-900 to text-gray-100, border-gray-200 to border-gray-600
+                    ? 'bg-gray-700 text-gray-100 border border-gray-600 rounded-bl-sm'
+                    // User message colors kept: bg-amber-700 text-white
                     : 'bg-amber-700 text-white rounded-br-sm'
             )}
         >
             <div className="flex items-start gap-2">
-                {msg.isBot && <Bot className="h-4 w-4 mt-0.5 text-green-700 flex-shrink-0" />}
+                {/* Changed text-green-700 to text-green-400 for better contrast on gray-700 */}
+                {msg.isBot && <Bot className="h-4 w-4 mt-0.5 text-green-400 flex-shrink-0" />}
                 <span dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                 {!msg.isBot && <User className="h-4 w-4 mt-0.5 text-amber-50 flex-shrink-0" />}
             </div>
@@ -125,7 +130,7 @@ const Chatbot = () => {
     // ✅ IMPROVED: Ref for the messages container
     const messagesContainerRef = useRef<HTMLDivElement>(null); 
 
-    // --- Scroll to bottom logic ---
+    // --- Scroll to bottom logic (Retained) ---
     const scrollToBottom = () => {
         if (messagesContainerRef.current) {
             messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
@@ -256,7 +261,7 @@ const Chatbot = () => {
     }, [language]);
 
 
-    // ---------------- JSX ----------------
+    // ---------------- JSX (DARK MODE APPLIED) ----------------
     return (
         <>
             {/* --- Chat Button (Retained) --- */}
@@ -270,28 +275,37 @@ const Chatbot = () => {
                 </Button>
             )}
 
-            {/* --- Main Chat Card --- */}
+            {/* --- Main Chat Card (DARK MODE) --- */}
             {isOpen && (
-                <Card className="fixed bottom-6 right-6 w-80 h-[480px] shadow-2xl z-50 flex flex-col rounded-xl overflow-hidden border border-gray-200">
+                // Added bg-gray-900 to Card for overall dark theme
+                <Card className="fixed bottom-6 right-6 w-80 h-[480px] shadow-2xl z-50 flex flex-col rounded-xl overflow-hidden border border-gray-700 bg-gray-900">
                     <CardHeader 
+                        // Header colors retained for branding/contrast
                         className="flex justify-between items-center p-3 bg-gradient-to-r from-green-700 to-amber-700 text-white flex-shrink-0"
                     >
                         <CardTitle className="flex items-center gap-2 text-sm font-semibold">
                             <Bot className="h-4 w-4" /> Eco Assistant
                         </CardTitle>
-                        <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="h-6 w-6 text-white">
+                        <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="h-6 w-6 text-white hover:bg-gray-700">
                             <X className="h-4 w-4" />
                         </Button>
                     </CardHeader>
 
                     {/* ✅ FIX: CardContent now uses flex-col to stack everything */}
-                    <CardContent className="flex flex-col h-full p-0 bg-gray-50">
-                        {/* --- Language Selector (Fixed Height) --- */}
-                        <div className="p-2 border-b bg-white flex-shrink-0">
+                    <CardContent 
+                        // Changed bg-gray-50 to bg-gray-800 for chat body
+                        className="flex flex-col h-full p-0 bg-gray-800"
+                    >
+                        {/* --- Language Selector (Fixed Height) (DARK MODE) --- */}
+                        <div 
+                            // Changed bg-white to bg-gray-900, border-b to border-gray-700
+                            className="p-2 border-b border-gray-700 bg-gray-900 flex-shrink-0"
+                        >
                             <select
                                 value={language}
                                 onChange={(e) => setLanguage(e.target.value as 'en-US' | 'hi-IN' | 'te-IN')}
-                                className="text-sm border rounded w-full p-1 hover:border-green-700 transition bg-white text-gray-900" 
+                                // Changed bg-white to bg-gray-800, text-gray-900 to text-gray-200, border-gray-300 to border-gray-700, hover:border-green-700
+                                className="text-sm border rounded w-full p-1 transition bg-gray-800 text-gray-200 border-gray-700 focus:border-green-400" 
                                 disabled={isLoading || isBotTyping}
                             >
                                 <option value="en-US">English</option>
@@ -302,12 +316,14 @@ const Chatbot = () => {
                         
                         {/* ✅ FIX: Messages Container - flex-1 allows it to take remaining vertical space. overflow-y-auto handles the scrolling. */}
                         <div 
+                            // Background is still bg-gray-800 from CardContent
                             className="flex-1 p-3 overflow-y-auto space-y-3" 
                             ref={messagesContainerRef}
                         >
-                            {/* --- Message Bubbles --- */}
+                            {/* --- Message Bubbles (See MessageBubble component for individual bubble changes) --- */}
                             {isLoading ? (
-                                <div className="flex justify-center items-center h-full min-h-[100px] text-gray-500">
+                                // Adjusted text-gray-500 to text-gray-400
+                                <div className="flex justify-center items-center h-full min-h-[100px] text-gray-400">
                                     <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading chat history...
                                 </div>
                             ) : (
@@ -317,22 +333,28 @@ const Chatbot = () => {
                             {isBotTyping && <div className="flex justify-start"><TypingIndicator /></div>}
 
                             {isError && (
-                                <div className="flex justify-center p-2 bg-red-100 border border-red-400 rounded-lg text-xs text-red-700">
+                                // Adjusted error block for dark theme: bg-red-800, border-red-600, text-red-300
+                                <div className="flex justify-center p-2 bg-red-800 border border-red-600 rounded-lg text-xs text-red-300">
                                     <AlertTriangle className="h-4 w-4 mr-1 flex-shrink-0" /> Failed to save history. You can still chat!
                                 </div>
                             )}
                         </div>
                         
-                        {/* --- Quick Replies (Fixed Height) --- */}
+                        {/* --- Quick Replies (Fixed Height) (DARK MODE) --- */}
                         {suggestedQuestions.length > 0 && !inputMessage && (
-                            <div className="p-2 border-t bg-white flex flex-wrap gap-1 flex-shrink-0">
+                            <div 
+                                // Changed bg-white to bg-gray-900, border-t to border-gray-700
+                                className="p-2 border-t border-gray-700 bg-gray-900 flex flex-wrap gap-1 flex-shrink-0"
+                            >
                                 {suggestedQuestions.map((reply, i) => (
                                     <Button
                                         key={i}
+                                        // Changed variant="outline" for dark theme contrast
                                         variant="outline"
                                         size="sm"
                                         onClick={() => handleQuickReply(reply)}
-                                        className="text-xs h-7 px-2 rounded-full hover:bg-green-100 transition text-green-700 border-green-700"
+                                        // Custom dark theme quick reply button: bg-gray-800, text-green-400, border-green-500, hover:bg-gray-700
+                                        className="text-xs h-7 px-2 rounded-full transition text-green-400 border-green-500 bg-gray-800 hover:bg-gray-700"
                                         disabled={isBotTyping}
                                     >
                                         {reply}
@@ -341,17 +363,22 @@ const Chatbot = () => {
                             </div>
                         )}
 
-                        {/* --- Input and Controls (Fixed Height) --- */}
-                        <div className="p-3 border-t bg-white flex gap-2 items-center flex-shrink-0">
+                        {/* --- Input and Controls (Fixed Height) (DARK MODE) --- */}
+                        <div 
+                            // Changed bg-white to bg-gray-900, border-t to border-gray-700
+                            className="p-3 border-t border-gray-700 bg-gray-900 flex gap-2 items-center flex-shrink-0"
+                        >
                             <input
                                 type="text"
                                 value={inputMessage}
                                 onChange={(e) => setInputMessage(e.target.value)}
                                 onKeyPress={handleKeyPress}
                                 placeholder="Type your message..."
-                                className="flex-1 text-sm rounded-full border border-gray-300 focus:border-green-700 p-2"
+                                // Dark theme input: bg-gray-800, text-gray-100, border-gray-600, focus:border-green-400
+                                className="flex-1 text-sm rounded-full border border-gray-600 focus:border-green-400 p-2 bg-gray-800 text-gray-100 placeholder:text-gray-400"
                                 disabled={isBotTyping}
                             />
+                            {/* Send Button colors retained for branding: bg-amber-700 */}
                             <Button 
                                 onClick={() => handleSendMessage()} 
                                 size="icon" 
@@ -360,6 +387,7 @@ const Chatbot = () => {
                             >
                                 <Send className="h-4 w-4" />
                             </Button>
+                            {/* Mic Button colors retained for branding: bg-green-700 */}
                             <Button 
                                 onClick={startListening} 
                                 size="icon" 
@@ -370,8 +398,11 @@ const Chatbot = () => {
                             </Button>
                         </div>
 
-                        {/* --- Footer Hint (Fixed Height) --- */}
-                        <div className="text-xs text-gray-400 flex items-center gap-1 mt-1 px-3 mb-2 flex-shrink-0">
+                        {/* --- Footer Hint (Fixed Height) (DARK MODE) --- */}
+                        <div 
+                            // Adjusted text-gray-400 to text-gray-500 for slight visibility on gray-900 background
+                            className="text-xs text-gray-500 flex items-center gap-1 mt-1 px-3 mb-2 flex-shrink-0 bg-gray-900"
+                        >
                             <CornerDownLeft className="h-3 w-3" /> Press Enter to send
                         </div>
                     </CardContent>
