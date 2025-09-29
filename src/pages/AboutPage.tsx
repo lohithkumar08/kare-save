@@ -57,7 +57,7 @@ const values = [
 const teamMembers = [
   {
     name: "Asma Mam",
-    role: "Head of Sustainable Operations",
+    role: "Mentor",
     bio: "I oversee the day-to-day operations of our sustainable farming practices, ensuring that every stage of cultivation follows eco-friendly and regenerative methods. My role involves monitoring soil health, water management, and the use of organic inputs to reduce environmental impact. I also coordinate with the team to implement crop rotation, integrated pest management, and natural fertilization techniques that promote biodiversity and long-term soil fertility. At the same time, I focus on yield and quality by applying modern agricultural innovations in harmony with traditional, nature-friendly practices. This balance allows us to produce healthy, high-quality crops while protecting natural resources and contributing to a more sustainable food system and moving together as one.",
     image: "/images/team/asma.jpg", // Placeholder image path for Asma
     tag: "Eco-Farming",
