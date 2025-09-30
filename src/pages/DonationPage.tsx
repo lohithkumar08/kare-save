@@ -136,7 +136,7 @@ const DonationPage = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-black-50 to-black-100 p-6">
-      <Card className="w-full max-w-xl shadow-xl border-2 border-green-200 rounded-2xl">
+      <Card className="w-full max-w-xl shadow-xl border-2 border-green-200 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-green-700">
             {donationType
@@ -149,7 +149,7 @@ const DonationPage = () => {
 
         <CardContent>
           {!donationType && (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 bg-gradient-to-br from-primary/10 to-secondary/10">
               <Button
                 size="lg"
                 className="bg-green-600 hover:bg-green-700 text-white"
@@ -160,7 +160,7 @@ const DonationPage = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-green-600 text-green-700 hover:bg-green-50"
+                className="border-green-600 text-green-600 hover:bg-black-50"
                 onClick={() => setDonationType('money')}
               >
                 💰 Donate Money
